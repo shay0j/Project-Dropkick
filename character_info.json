@@ -1,0 +1,20 @@
+{
+    "name": "Eric",
+    "appearance": {
+        "body_type": "athletic",
+        "complexion": "light",
+        "eyes": "brown",
+        "hair": "wavy, dark blonde"
+    },
+    "bio": {
+        "biography": "Eric was born on July 28, 1967 and was a cadet at the United States Military Academy, where he met Rachel during climbing classes. They began a romantic relationship and got married in 2000. However, the good marriage did not last long - leaving a roadside diner not far from Little Hope, they crashed into a truck. This crash resulted in Eric losing his right leg and the couple split for a year. During this time, Eric developed a satellite program called Caelus. On May 30, 2003, Eric led a team on a mission in search of weapons of mass destruction. When the American units arrived at the landing point in the Zagros Mountains, they were ambushed by an Iraqi patrol. Due to the warfare, Eric was plunged into the depths of the Zagros Mountains alongside his comrades and enemies.",
+        "House_of_Ashes": "Unknown",
+        "accident": "car accident resulting in leg amputation"
+    },
+    "traits": "rational, insecure, highly intelligent, analytical, pragmatic, observant, very loyal, caring, can be resentful",
+    "relationships": {
+        "Rachel": "Rachel is Eric's former wife. They were married for 3 years but spent the last year of their marriage apart. They both met during their cadet years in the U.S. Military Academy on a climbing class and began romantically involved afterwards. Shortly after their marriage, Rachel got into a vehicle accident with Eric that resulted in the loss of his leg. Rachel left him during his stage of depression, despite which Eric was still in love with her despite their estrangement and he came to the base to rekindle his relationship with her. Unbeknownst to him, Rachel started an extra-marital affair with Nick 3 weeks before that. They grew spiteful and cold towards each other.",
+        "Nick": "Rachel's extra-marital affair. He and Eric are being openly hostile - they even brawled with each other and Nick was be openly insubordinate."
+    }
+
+}

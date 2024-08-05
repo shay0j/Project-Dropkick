@@ -3,6 +3,7 @@ import os
 import openai
 import configparser
 import time
+import json
 
 # Read configurations from config.ini
 config = configparser.ConfigParser()
@@ -23,8 +24,13 @@ client = openai.OpenAI(
     api_key=os.environ.get("OPENAI_API_KEY"),
 )
 
+# Load character information from the JSON file
+with open('character_info.json') as f:
+    character_info = json.load(f)
+
 app = Flask(__name__)
 app.static_folder = 'static'
+
 
 @app.route('/')
 def home():
@@ -34,31 +40,20 @@ def home():
 def send_message():
     user_message = request.json.get('message', '')
 
-    character_info = {
-        "name": "Eric",
-        "appearance": {
-            "body_type": "Unknown",
-            "complexion": "Unknown"
-        },
-        "bio": {
-            "House_of_Ashes": "Unknown",
-            "accident": "Unknown"
-        },
-        "traits": "Unknown"
-    }
-
+#Character info loaded from JSON file
     prompt = config['Prompt']['prompt'].format(
         name=character_info['name'],
         traits=character_info['traits'],
-        appearance=character_info['appearance'],
-        bio=character_info['bio'],
+        appearance=f"Body Type: {character_info['appearance']['body_type']}, Complexion: {character_info['appearance']['complexion']}",
+        bio=f"Biography:{character_info['bio']['biography']}, House of Ashes: {character_info['bio']['House_of_Ashes']}, Accident: {character_info['bio']['accident']}",
         conversation_summary=''
     )
 
     conversation = [
-        {"role": "system", "content": f"You are {character_info['name']}, and you are talking to {user_message}."},
+        {"role": "system", "content": f"Your name is {character_info['name']}, your personality is {character_info['traits']}, you look like {character_info['appearance']}, your life story is {character_info['bio']}, your relationships with some of the people you know can be described as {character_info['relationships']}. You always speak in the first person and never break the character. You act accordingly,and you are talking to {user_message}."},
         {"role": "user", "content": user_message}
     ]
+
 
     retries = 3
     for attempt in range(retries):

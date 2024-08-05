@@ -5,17 +5,14 @@ Open Command Prompt: Open a new Command Prompt window.
 Navigate to your project directory:
 
 cmd
-Skopiuj kod
-cd C:\Users\hellb\Desktop\Project Dropkick
+cd C:\Users\hellb\Desktop\Project_Dropkick
 Activate your virtual environment:
 
 cmd
-Skopiuj kod
 venv\Scripts\activate
 Run your Flask application:
 
 cmd
-Skopiuj kod
 python app.py
 If app.py is configured correctly, Flask should start and you’ll see an output similar to:
 
