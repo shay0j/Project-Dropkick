@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Interface</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <style>
+        /* Chat window styles */
+        .chat-container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background-color: #f5f5f5;
+            overflow-y: auto;
+            height: 500px;
+        }
+
+        /* Message bubble styles */
+        .message {
+            margin: 10px;
+            clear: both;
+        }
+
+        .user-message {
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #0078ff;
+            float: right;
+            color: #fff;
+            display: inline-block;
+            max-width: 80%;
+        }
+
+        .bot-message {
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #e5e5ea;
+            float: left;
+            display: inline-block;
+            max-width: 80%;
+        }
+
+        /* User input styles */
+        #user-input {
+            width: 300px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        #send-button {
+            padding: 10px 20px;
+            background-color: #0078ff;
+            border: none;
+            color: #fff;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container" id="chat-window">
+        <!-- Chat messages will be displayed here -->
+    </div>
+    <div class="chat-input" id="user-message-input">
+        <input type="text" id="user-input" placeholder="Type your message...">
+        <button id="send-button">Send</button>
+    </div>
+
+    <!-- Include Firebase Configuration as an ES6 module -->
+    <script type="module" src="/static/firebase.js"></script>
+
+    <!-- Include JavaScript for chat functionality as an ES6 module -->
+    <script type="module" src="/static/app.js"></script>
+	
+</body>
+</html>
