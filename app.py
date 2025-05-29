@@ -32,6 +32,7 @@ app = Flask(__name__)
 app.static_folder = 'static'
 
 
+
 @app.route('/')
 def home():
     return render_template('chat.html')
