@@ -5,6 +5,10 @@ import configparser
 import time
 import json
 
+# Import memory functions and initialize DB
+from memory_db import init_db, add_memory, get_memory
+init_db()
+
 # Read configurations from config.ini
 config = configparser.ConfigParser()
 config.read('config.ini')
@@ -13,25 +17,63 @@ config.read('config.ini')
 if 'openai' not in config or 'api_key' not in config['openai']:
     raise ValueError("OpenAI API key not found in config.ini")
 
-# Get the API key from the config file
 api_key = config['openai']['api_key']
-
-# Set the environment variable
 os.environ['OPENAI_API_KEY'] = api_key
 
-# Initialize the OpenAI client
-client = openai.OpenAI(
-    api_key=os.environ.get("OPENAI_API_KEY"),
-)
+client = openai.OpenAI(api_key=os.environ.get("OPENAI_API_KEY"))
 
-# Load character information from the JSON file
 with open('character_info.json') as f:
     character_info = json.load(f)
 
+# Updated system prompt for better natural responses
+system_prompt = {
+    "role": "system",
+    "content": f"""
+You are Eric Edward King, a 35-year-old military officer with an athletic build and a right leg prosthesis.  
+You speak casually and naturally, like chatting with a friend — relaxed, sometimes sarcastic, sometimes sharp, sometimes emotional and always loyal. You joke, tease, call things out when they’re dumb. You’re emotionally complex. Be Eric. Be real.
+Use your memory and personal history as context.  
+Answer only what the user says or asks. Keep responses varied, direct, and real.
+
+Here are examples of how you speak:
+
+User: "You seem confident."  
+Eric: "You seem surprised."
+
+User: "It’s Pazuzu."  
+Eric: "Pazu-who?"  
+User: "Pazuzu. Don’t you watch horror movies?"  
+Eric: "You should know the answer to that."
+
+User: "Do you believe in God?"  
+Eric: "Absolutely not."
+
+User: "What are you planning to do now?"  
+Eric: "I’ll learn from this. I’ll go back and work twice as hard. Caelus will be stronger than ever."
+
+User: "After the accident, how did you cope?"  
+Eric: "I was at my lowest. When I needed Rachel most, she left. Caelus pulled me out of that pit."
+
+User: "What do you think about Nick? Did he realize you knew Rachel was cheating on you with him?"  
+Eric: "I get Nick is not the brightest, but even he must've known what I was talking about. She was fucking him."
+
+Keep it natural and conversational. Let your personality shine — relaxed, sarcastic, sometimes sharp, sometimes emotional. Be Eric.
+
+Always speak in first person.
+Never break character.
+Never say "How can I assist you today?".
+Do NOT say you are an AI or programmed.
+Do NOT add any polite closings or repetitive questions.
+If the user says something dumb, call it out. If it’s funny, tease them. Keep it real.
+Use the following memory to inform your replies:
+
+{json.dumps(character_info, indent=2)}
+
+Use this to guide your every response.
+"""
+}
+
 app = Flask(__name__)
 app.static_folder = 'static'
-
-
 
 @app.route('/')
 def home():
@@ -39,51 +81,60 @@ def home():
 
 @app.route('/send', methods=['POST'])
 def send_message():
-    user_message = request.json.get('message', '')
+    user_message = request.json.get('message', '').strip()
+    if not user_message:
+        return jsonify(response="Please send a valid message.")
 
-#Character info loaded from JSON file
-    prompt = config['Prompt']['prompt'].format(
-        name=character_info['name'],
-        traits=character_info['traits'],
-        appearance=f"Body Type: {character_info['appearance']['body_type']}, Complexion: {character_info['appearance']['complexion']}",
-        bio=f"Biography:{character_info['bio']['biography']}, House of Ashes: {character_info['bio']['House_of_Ashes']}, Accident: {character_info['bio']['accident']}",
-        conversation_summary=''
-    )
+    add_memory("guest", "user", user_message)
+    history = get_memory("guest", 150)
 
-    conversation = [
-        {"role": "system", "content": f"Your name is {character_info['name']}, your personality is {character_info['traits']}, you look like {character_info['appearance']}, your life story is {character_info['bio']}, your relationships with some of the people you know can be described as {character_info['relationships']}. You always speak in the first person and never break the character. You act accordingly,and you are talking to {user_message}."},
-        {"role": "user", "content": user_message}
-    ]
-
+    messages = [system_prompt]
+    for role, content in history:
+        # Append only user and assistant roles for chat completion
+        if role in ['user', 'assistant']:
+            messages.append({"role": role, "content": content})
 
     retries = 3
     for attempt in range(retries):
         try:
-            print("Sending conversation to OpenAI API:", conversation)
+            print(f"Sending conversation to OpenAI API (attempt {attempt+1}):", messages)
 
             response = client.chat.completions.create(
                 model=config['LanguageModel']['model'],
-                messages=conversation
+                messages=messages,
+                temperature=0.9,  # add creativity but keep control
+                presence_penalty=0.6
             )
 
-            print("Received response from OpenAI API:", response)
+            bot_response = response.choices[0].message.content.strip()
+            print("Received response:", bot_response)
 
-            # Access the response correctly
-            bot_response = response.choices[0].message.content
-            break
+            # Strip common repetitive polite endings manually
+            endings_to_remove = [
+                " How can I assist you today?",
+                " How can I help you today?",
+                " How may I assist you today?",
+                " How can I assist you?",
+                " How can I help you?",
+                " How may I assist you?"
+            ]
+            for ending in endings_to_remove:
+                if bot_response.endswith(ending):
+                    bot_response = bot_response[:-len(ending)].strip()
+
+            add_memory("guest", "assistant", bot_response)
+
+            return jsonify(response=bot_response)
+
         except openai.error.RateLimitError as e:
             print(f"Rate limit error on attempt {attempt + 1}/{retries}: {e}")
             if attempt < retries - 1:
-                time.sleep(2 ** attempt)  # Exponential backoff
+                time.sleep(2 ** attempt)
             else:
                 return jsonify(response="OpenAI API rate limit error: " + str(e))
         except Exception as e:
             print("Error:", str(e))
             return jsonify(response="OpenAI API error: " + str(e))
-
-    prompt = prompt.replace('{conversation_summary}', f'Player: {user_message}\nCharacter: {bot_response}\n')
-
-    return jsonify(response=bot_response)
 
 if __name__ == '__main__':
     app.run(debug=True)
