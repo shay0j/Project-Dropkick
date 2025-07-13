@@ -1,0 +1,8 @@
+# Dirs
+./__pycache__/
+
+# Workspaces
+*.code-workspace
+
+# Python
+.env
