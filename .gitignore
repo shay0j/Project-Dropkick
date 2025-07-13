@@ -3,3 +3,6 @@
 
 # Workspaces
 *.code-workspace
+
+# Python
+.env
