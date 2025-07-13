@@ -5,6 +5,7 @@ import configparser
 import time
 import json
 
+
 # Read configurations from config.ini
 config = configparser.ConfigParser()
 config.read('config.ini')
@@ -71,7 +72,7 @@ def send_message():
             # Access the response correctly
             bot_response = response.choices[0].message.content
             break
-        except openai.error.RateLimitError as e:
+        except openai.RateLimitError as e:
             print(f"Rate limit error on attempt {attempt + 1}/{retries}: {e}")
             if attempt < retries - 1:
                 time.sleep(2 ** attempt)  # Exponential backoff
