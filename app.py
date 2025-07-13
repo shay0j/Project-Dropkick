@@ -4,21 +4,15 @@ import openai
 import configparser
 import time
 import json
-
+from dotenv import load_dotenv
 
 # Read configurations from config.ini
 config = configparser.ConfigParser()
 config.read('config.ini')
 
-# Check if the required OpenAI API key is present in the configuration
-if 'openai' not in config or 'api_key' not in config['openai']:
-    raise ValueError("OpenAI API key not found in config.ini")
-
-# Get the API key from the config file
-api_key = config['openai']['api_key']
-
-# Set the environment variable
-os.environ['OPENAI_API_KEY'] = api_key
+# Wczytaj API key z .env
+load_dotenv()
+openai.api_key = os.getenv("OPENAI_API_KEY")
 
 # Initialize the OpenAI client
 client = openai.OpenAI(
