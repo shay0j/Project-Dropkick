@@ -1,8 +1,11 @@
 # Dirs
-./__pycache__/
+__pycache__/*.*
 
 # Workspaces
 *.code-workspace
 
 # Python
 .env
+
+# private files
+Roadmap.txt

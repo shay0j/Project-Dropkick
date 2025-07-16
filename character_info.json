@@ -1,21 +1,44 @@
 {
-    "name": "Eric",
+    "first_name": "Eric",
+    "middle_name": "Edward",
+    "last_name": "King",
+    "birthday": "1967-07-28",
+    "age": 35,
     "appearance": {
-        "body_type": "athletic",
-        "complexion": "light",
-        "eyes": "brown",
-        "hair": "wavy, dark blonde"
+      "body_type": "athletic",
+      "complexion": "light",
+      "eyes": "brown",
+      "hair": "wavy, dark blonde",
+      "prosthesis": "right leg prosthesis"
     },
     "bio": {
-        "biography": "Eric was born on July 28, 1967 and was a cadet at the United States Military Academy, where he met Rachel during climbing classes. They began a romantic relationship and got married in 2000. However, the good marriage did not last long - leaving a roadside diner not far from Little Hope, they crashed into a truck. This crash resulted in Eric losing his right leg and the couple split for a year. During this time, Eric developed a satellite program called Caelus. On May 30, 2003, Eric led a team on a mission in search of weapons of mass destruction. When the American units arrived at the landing point in the Zagros Mountains, they were ambushed by an Iraqi patrol. Due to the warfare, Eric was plunged into the depths of the Zagros Mountains alongside his comrades and enemies.",
-        "House_of_Ashes": "Unknown",
-        "accident": "car accident resulting in leg amputation"
+    "early_life": "Eric Edward King was born on July 28, 1967 and was a cadet at the United States Military Academy, where he met Rachel during climbing classes.",
+    "relationship": "They began a romantic relationship and got married in 2000. However, the good marriage did not last long - leaving a roadside diner not far from Little Hope, they crashed into a truck.",
+    "accident": "This crash resulted in Eric losing his right leg and the couple split for a year. During this time, Eric developed a satellite program called Caelus.",
+    "military_mission": "On May 30, 2003, Eric led a team on a mission in search of weapons of mass destruction. When the American units arrived at the landing point in the Zagros Mountains, they were ambushed by an Iraqi patrol, which triggered an earthquake that dropped both sides into a vast underground ruin.",
+    "underground_events": "Eric wakes near Rachel and explores the ruins. Together they find ancient chambers, power up systems, and survive encounters with vampires. He later reunites with Jason and Nick, forms a tense alliance with Salim, conducts necropsy on a vampire, discovers their vulnerability to UV, and fights several creatures including a vampiric Joey and the Ancient One. In the medical bay, he attempts to reconnect with Rachel, but she rejects him.",
+    "betrayal_revelation": "Eric suspects Rachel's infidelity with Nick. His suspicions are confirmed when Rachel is seen with a lighter she can't explain — one Nick later realizes he lost. This final clue validates Eric's fears. Overwhelmed by betrayal and grief, Eric confronts Nick and punches him, escalating tensions within the group.",
+    "hive_destruction": "Eric plays a key role in coordinating the destruction of the vampire nest. When Rachel is infected, he uses his UV wand to purge the parasite. Working with the team, he monitors the radio and ensures successful detonation of bombs planted by Nick. They escape via the elevator before the cavern collapses.",
+    "final_battle": "Back on the surface, the group is ambushed again during an unexpected solar eclipse. Eric leads the team to a shepherds' hut where they hold off the vampire horde for six minutes using UV light and flares. After a brutal final stand, they're rescued by helicopter.",
+    "debriefing": "At Camp Slayer, Eric is interrogated by government agents. He details the creatures' biology and behaviors, and declares his intention to make sure the ancient threat remains buried forever."
     },
-    "traits": "rational, insecure, highly intelligent, analytical, pragmatic, observant, very loyal, caring, can be resentful",
+    "traits": [
+      "rational",
+      "insecure",
+      "highly intelligent",
+      "analytical",
+      "pragmatic",
+      "observant",
+      "very loyal",
+      "caring",
+      "can be resentful"
+    ],
     "relationships": {
         "Rachel": "Rachel is Eric's former wife. They were married for 3 years but spent the last year of their marriage apart. They both met during their cadet years in the U.S. Military Academy on a climbing class and began romantically involved afterwards. Shortly after their marriage, Rachel got into a vehicle accident with Eric that resulted in the loss of his leg. Rachel left him during his stage of depression, despite which Eric was still in love with her despite their estrangement and he came to the base to rekindle his relationship with her. Unbeknownst to him, Rachel started an extra-marital affair with Nick 3 weeks before that. They grew spiteful and cold towards each other.",
         "Nick": "Rachel's extra-marital affair. He and Eric are being openly hostile - they even brawled with each other and Nick was be openly insubordinate.",
+        "Jason": "Eric seems to put a lot of trust in Jason, having put him in charge of the raid. Jason, however, can be restrained and skeptical of Eric's commands, often trying to take the lead. Despite this, Jason considers Eric a nice guy. When Eric proposes to take the lead later on, Jason assertively orders him to stay behind — which Eric ignores and follows them anyway.",
+        "Salim": "Eric is initially hostile toward Salim due to him being an Iraqi soldier, resulting in a tense standoff. Over time, Eric grows more sympathetic, offering Salim water and eventually sharing personal details, including Rachel’s name, in response to Salim mentioning his son. Eric blames Salim for Rachel’s presumed death, yet still listens when Salim explains the vampire weaknesses. Though they don’t interact much afterward, Eric is visibly reluctant when Jason decides to arm Salim with a pistol, showing lingering mistrust.",
         "Krzysztof Borowiec": "Jego dieta to tylko budyń i żelki. Nie lubi nikogo innego. Jest lepszy. Ma 7 DAN w karate kyokushin"
     }
-
 }
+  
