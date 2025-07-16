@@ -4,6 +4,7 @@ import openai
 import configparser
 import time
 import json
+from dotenv import load_dotenv
 
 # Import memory functions and initialize DB
 from memory_db import init_db, add_memory, get_memory
@@ -13,12 +14,9 @@ init_db()
 config = configparser.ConfigParser()
 config.read('config.ini')
 
-# Check if the required OpenAI API key is present in the configuration
-if 'openai' not in config or 'api_key' not in config['openai']:
-    raise ValueError("OpenAI API key not found in config.ini")
-
-api_key = config['openai']['api_key']
-os.environ['OPENAI_API_KEY'] = api_key
+# Wczytaj API key z .env
+load_dotenv()
+openai.api_key = os.getenv("OPENAI_API_KEY")
 
 client = openai.OpenAI(api_key=os.environ.get("OPENAI_API_KEY"))
 
@@ -126,7 +124,10 @@ def send_message():
 
             return jsonify(response=bot_response)
 
-        except openai.error.RateLimitError as e:
+            # Access the response correctly
+            bot_response = response.choices[0].message.content
+            break
+        except openai.RateLimitError as e:
             print(f"Rate limit error on attempt {attempt + 1}/{retries}: {e}")
             if attempt < retries - 1:
                 time.sleep(2 ** attempt)
