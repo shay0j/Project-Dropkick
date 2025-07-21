@@ -30,8 +30,8 @@ def get_memory(user_id, limit=50):
     c.execute('SELECT role, content FROM memory WHERE user_id = ? ORDER BY id DESC LIMIT ?', (user_id, limit))
     rows = c.fetchall()
     conn.close()
-    return rows[::-1]  # odwróć kolejność na chrono
+    return rows[::-1]  
 
 if __name__ == '__main__':
     init_db()
-    print("Baza danych memory.db i tabela memory gotowe.")
+    print("Database memory.db and the memory sheet are ready.")
