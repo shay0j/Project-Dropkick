@@ -38,6 +38,7 @@ INSTALLATION
 1. Clone the repository:
 
    git clone https://github.com/shay0j/Project-Dropkick
+   
    cd Project-Dropkick
 
 2. (Optional) Create and activate a virtual environment:
